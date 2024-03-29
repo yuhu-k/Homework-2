@@ -23,14 +23,7 @@ contract Arbitrage is Test {
 
     function _addLiquidity(address token0, address token1, uint256 token0Amount, uint256 token1Amount) internal {
         router.addLiquidity(
-            token0,
-            token1,
-            token0Amount,
-            token1Amount,
-            token0Amount,
-            token1Amount,
-            owner,
-            block.timestamp
+            token0, token1, token0Amount, token1Amount, token0Amount, token1Amount, owner, block.timestamp
         );
     }
 
@@ -79,6 +72,15 @@ contract Arbitrage is Test {
         /**
          * Please add your solution below
          */
+        address[] memory path = new address[](5);
+
+        // tokenB -> tokenA -> tokenD -> tokenc -> tokenB
+        path[0] = address(tokenB);
+        path[1] = address(tokenA);
+        path[2] = address(tokenD);  
+        path[3] = address(tokenC);
+        path[4] = address(tokenB);
+        router.swapExactTokensForTokens(5 ether, 0, path, arbitrager, block.timestamp);
         /**
          * Please add your solution above
          */
